@@ -15,7 +15,8 @@ public class Movies {
 	 private String actor;
 	 private String imageType;
 	 private String base64String;
-	 
+	 private String imagePath;
+	 private String imagePathAsset;
 	 
 
 
@@ -51,6 +52,24 @@ public class Movies {
 		this.base64String = base64String;
 	}
 	
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    
+    public String getImagePathAsset() {
+        return imagePathAsset;
+    }
+
+    public void setImagePathAsset(String imagePathAsset) {
+        this.imagePathAsset = imagePathAsset;
+    }
+    
+    
 	
 	
 
