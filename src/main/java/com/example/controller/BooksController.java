@@ -53,6 +53,12 @@ public class BooksController {
       }
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Movie not found");
   }
+  
+  @GetMapping("/{name}")
+  public Books  getSingleBook(@PathVariable("name") String name) {
+	return bookService.getSingleBook(name);
+	  
+  }
 
 }
 

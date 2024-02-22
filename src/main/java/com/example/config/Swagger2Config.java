@@ -12,9 +12,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @Configuration
 public class Swagger2Config {
-	
-	 @Bean
-	    public Docket swaggerConfig() {
+
+    @Bean
+    Docket swaggerConfig() {
 	        return new Docket(DocumentationType.SWAGGER_2)
 	                .select()
 	                .apis(RequestHandlerSelectors.basePackage("com.example.controller"))

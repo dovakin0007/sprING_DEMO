@@ -1,16 +1,10 @@
 package com.example.service;
 
-
-import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.example.model.Books;
 import com.example.repository.BooksRepository;
-
-
-
 import java.util.List;
-import java.util.Optional;
 	 
 	@Service
 	public class BooksService {
@@ -31,15 +25,33 @@ import java.util.Optional;
 	        return bookRepository.findAll();
 	    }
 	    
+	    public Books getSingleBook(String name) {
+	    	Books existingBookOptional = null;
+	        try {
+		         existingBookOptional = bookRepository.findByNameContaining(name);
+		       
+	        }catch (Exception e){
+	        	e.printStackTrace();
+	        }
+	        return existingBookOptional;
+	        
+	    	
+	    }
+	    
 	    public Books updateBooks(String name, Books updatedBook) {
 	    	try {
-	        Books existingBook = bookRepository.findByNameContaining(name).get(0);
+	    	Books existingBook = bookRepository.findByNameContaining(name);
 	        if (existingBook != null) {
 	            // Update the fields you want to update
-	            existingBook.setName(updatedBook.getName());
-	            existingBook.setAuthor(updatedBook.getAuthor());
-	            existingBook.setImageType(existingBook.getImageType());
-	            existingBook.setBase64String(updatedBook.getBase64String());
+	        	if ( updatedBook.getName().isEmpty() == false|| updatedBook.getName()!= null) {
+	        		existingBook.setName(updatedBook.getName());
+	        	}if (updatedBook.getAuthor().isEmpty() == false || updatedBook.getAuthor()!= null) {
+	        		existingBook.setAuthor(updatedBook.getAuthor());
+	        	}if (updatedBook.getBase64String().isEmpty() == false || updatedBook.getBase64String()!= null) {
+	        		existingBook.setBase64String(updatedBook.getBase64String());
+	        	}if ( updatedBook.getImageType().isEmpty() == false || updatedBook.getImageType()!= null) {
+	        		existingBook.setImageType(updatedBook.getImageType());
+	        	}
 	            // Save the updated books
 	            return bookRepository.save(existingBook);
 	        } else {
@@ -53,8 +65,8 @@ import java.util.Optional;
 			return updatedBook;
 	    }
 	    public boolean deleteBook(String name ) {
-	        Optional<Books> existingBookOptional = Optional.ofNullable(bookRepository.findByNameContaining(name).get(0));
-	        if (existingBookOptional.isPresent()) {
+	        Books existingBookOptional = bookRepository.findByNameContaining(name);
+	        if (existingBookOptional != null) {
 	            bookRepository.deleteByName(name);
 	            return true;
 	        }
